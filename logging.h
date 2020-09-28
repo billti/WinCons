@@ -31,7 +31,8 @@ public:
         DWORD err = 0;
         if (hasConsole) {
             if (!WriteFile(hStdOut, msg.c_str(), msg.length(), &written, nullptr)) {
-                // If output is being redirected in a GUI app, this always fails with:
+                // If output is being redirected in a GUI app, this fails with
+                // the following if run from a PowerShell command-line.
                 //   0xE8 ERROR_NO_DATA "The pipe is being closed."
                 err = GetLastError();
                 throw std::exception("Failed to write to console");
