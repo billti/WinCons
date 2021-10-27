@@ -1,7 +1,14 @@
-SET CL=/Zi /Od /MDd /std:c++17 /EHsc
-SET LINK=user32.lib kernel32.lib
+@ECHO OFF
+SET LOCAL
+IF NOT DEFINED VCToolsInstallDir EXIT /B -1
 
-cl.exe winmain.cpp /Fe:app.exe /link /subsystem:windows
+SET OUTDIR=%~dp0bin\
+IF NOT EXIST "%OUTDIR%" MKDIR "%OUTDIR%"
 
-REM Build the console version for testing too
-cl.exe cons.cpp /Fe:cons.exe
+SET CL=/Zi /Od /MDd /std:c++17 /EHsc /Fe:%OUTDIR% /Fo:%OUTDIR% /Fd:%OUTDIR%
+SET CL=/nologo %CL% /permissive- /W3
+
+SET LINK=user32.lib kernel32.lib advapi32.lib
+
+cl.exe winmain.cpp /link /subsystem:windows
+cl.exe main.cpp

@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 int main() {
-  DiagOutput Log;
+  Logger Log;
   Log.CreateConsole();
 
   Log.Write("this is my first line\n");
